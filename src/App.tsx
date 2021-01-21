@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Children, useState } from 'react';
 import './App.css';
+import { MainPage } from './pages/main';
+import { Route, Switch, } from "react-router-dom";
+import CreatePage from './pages/create';
+import { Jot } from './models/jot';
+import LoginPage from './pages/login';
+import JotPage from './pages/jotPage';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+export interface ILocationState {
+  jot?: Jot;
 }
 
-export default App;
+export default function App() {
+  return <Switch>
+    <Route path="/j/:jid">
+      <JotPage />
+    </Route>
+    <Route path="/login">
+      <LoginPage />
+    </Route>
+    <Route path="/create" >
+      <CreatePage />
+    </Route>
+    <Route path="/">
+      <MainPage />
+    </Route>
+  </Switch>
+
+
+}

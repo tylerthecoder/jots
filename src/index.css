@@ -1,13 +1,55 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: darkslateblue;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.jot {
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  background-color: darkcyan;
+  box-shadow: 3px 3px 1px #7777;
+}
+
+.floatingBtn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: red;
+  color: white;
+  border: 1px solid black;
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  font-size: 3em;
+  box-shadow: 10px 10px 10px grey;
+}
+
+#create-jot-form {
+  position: fixed;
+  min-width: 600px;
+  max-width: 1000px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: wheat;
+  border: red solid 2px;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+#create-jot-form textarea {
+  background-color: wheat;
 }
