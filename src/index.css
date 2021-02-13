@@ -1,4 +1,6 @@
-body {
+html,
+body,
+#root {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
@@ -6,11 +8,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: darkslateblue;
+  height: 100%;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+textarea {
+  background-color: wheat;
+}
+
+input {
+  background-color: whitesmoke;
+  border: none;
+  border-bottom: dotted 1px red;
+}
+
+button {
+  text: black;
 }
 
 .card {
@@ -21,6 +33,13 @@ code {
   border: 1px solid black;
   background-color: darkcyan;
   box-shadow: 3px 3px 1px #7777;
+}
+
+.centerCard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .floatingBtn {
@@ -50,36 +69,6 @@ code {
   border-radius: 20px;
 }
 
-#create-jot-form textarea {
-  background-color: wheat;
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 #mainPage {
   display: flex;
 }
@@ -88,4 +77,17 @@ code {
   #mainPage {
     display: block;
   }
+}
+
+.jotInput {
+  width: 100%;
+  height: 100px;
+}
+
+.centerContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

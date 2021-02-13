@@ -1,12 +1,8 @@
+import { Change } from "diff";
 import { API_URL } from "../config";
 import { IJot } from "../models/jot";
 import StorageService from "./storage";
 
-
-interface IGetJotsResponse {
-  message: string;
-  jots: IJot[];
-}
 
 export class API {
   static async get<T>(path: string): Promise<T> {
@@ -27,12 +23,28 @@ export class API {
     return res.json()
   }
 
+  static async put<T>(path: string, data: {}): Promise<T> {
+    const url = `${API_URL}${path}?pwd=${StorageService.getPassword()}`;
+    const res = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    return res.json()
+  }
+
   static async getJots(): Promise<IJot[]> {
     return this.get<IJot[]>("/jots");
   }
 
   static async createJot(text: string): Promise<void> {
     return this.post("/jot", { text });
+  }
+
+  static async editJotText(jotId: string, changes: Change[]): Promise<void> {
+    return this.put(`/jot/${jotId}`, changes);
   }
 
   static async addTag(jotId: string, tag: string): Promise<void> {

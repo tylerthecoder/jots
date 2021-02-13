@@ -1,3 +1,4 @@
+import { diffChars } from "diff";
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { ILocationState } from "../App";
@@ -17,6 +18,7 @@ export default function JotPage() {
   const { jid } = useParams<ILocationParams>();
   const location = useLocation<ILocationState>();
   const [jot, setJot] = useState<IJot | null>(location.state?.jot ?? null);
+  const [editingText, setEditingText] = useState<string>("");
 
   // now clear the jot from the location state (so reloading page refetchs the data)
   if (location.state?.jot) {
@@ -76,6 +78,24 @@ export default function JotPage() {
 
   const editJot = () => {
     setIsEditing(old => !old);
+    setEditingText(jot.text);
+  }
+
+  const saveJot = async () => {
+    const diff = diffChars(jot.text, editingText);
+    await API.editJotText(jot._id, diff);
+    setJot(oldJot => {
+      if (!oldJot) return null;
+      return {
+        ...oldJot,
+        text: editingText
+      }
+    });
+    setIsEditing(old => !old);
+  }
+
+  const revertChanges = () => {
+    setIsEditing(old => !old);
   }
 
   if (!jot.tags) jot.tags = [];
@@ -84,10 +104,17 @@ export default function JotPage() {
     <div className="card">
       {
         isEditing ?
-          <textarea value={jot.text} /> :
-          <p> {jot.text} </p>
+          <div>
+            <textarea className="jotInput" value={editingText} onChange={e => setEditingText(e.target.value)} />
+            <button onClick={revertChanges}> Cancel </button>
+            <button onClick={saveJot}> Save </button>
+          </div>
+          :
+          <div>
+            <p> {jot.text} </p>
+            <button onClick={editJot}> Edit </button>
+          </div>
       }
-      <button onClick={editJot}> Edit </button>
       <div className="tagsPanel">
         {jot.tags.map(tag => {
           return (
