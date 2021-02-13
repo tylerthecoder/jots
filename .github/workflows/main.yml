@@ -18,6 +18,7 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        
       - name: Build Project
         run: yarn build
         env:
@@ -28,6 +29,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+        
       - name: Deploy
         run: yarn deploy
         env:
