@@ -6,7 +6,6 @@
     "start": "react-scripts start",
     "dev": "react-scripts start",
     "build": "react-scripts build",
-    "deploy": "aws s3 mv build s3://jot.tylertracy.com --recursive"
   },
   "dependencies": {
     "diff": "^5.0.0",
