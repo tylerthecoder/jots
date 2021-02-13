@@ -1,15 +1,14 @@
-import React, { Children, useState } from 'react';
-import './App.css';
+import React from 'react';
 import { MainPage } from './pages/main';
 import { Route, Switch, } from "react-router-dom";
 import CreatePage from './pages/create';
-import { Jot } from './models/jot';
+import { IJot } from './models/jot';
 import LoginPage from './pages/login';
 import JotPage from './pages/jotPage';
 
 
 export interface ILocationState {
-  jot?: Jot;
+  jot?: IJot;
 }
 
 export default function App() {

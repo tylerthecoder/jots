@@ -1,23 +1,26 @@
-import { Jot } from "../models/jot";
+import { useState } from "react";
+import { IJot } from "../models/jot";
 
 interface IProps {
-  jots: Jot[],
+  jots: IJot[],
   onTagSelected: (tag: string) => void;
 }
 
 export default function TagsPanel(props: IProps) {
+  const [selectedTag, setSelectedTag] = useState<string>("all");
   const { jots, onTagSelected } = props;
 
   const allTagsSet = jots
-    .map(jot => jot.tag)
+    .flatMap(jot => jot.tags)
     .reduce((acc, tag) => {
-      if (tag) acc.add(tag);
+      if (tag) acc.add(tag.text);
       return acc;
     }, new Set<string>());
 
   const allTags = Array.from(allTagsSet.values()).concat(["all"]);
 
   const onTagClick = (tag: string) => {
+    setSelectedTag(tag);
     onTagSelected(tag);
   }
 
@@ -30,6 +33,7 @@ export default function TagsPanel(props: IProps) {
             onClick={() => onTagClick(tag)}
           >
             {tag}
+            {tag === selectedTag && "*"}
           </p>
         ))
       }

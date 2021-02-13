@@ -1,11 +1,11 @@
-import { Jot } from "../models/jot";
+import { IJot } from "../models/jot";
 import { JotView } from "./jot";
 
 interface IProps {
-  jots: Jot[];
+  jots: IJot[];
   textFilter: string;
   tagFilter: string;
-  onJotClicked: (jot: Jot) => void;
+  onJotClicked: (jot: IJot) => void;
 }
 
 export default function JotsView(props: IProps) {
@@ -13,10 +13,10 @@ export default function JotsView(props: IProps) {
 
   const jots = props.jots
     .filter(jot => {
-      if (!jot.data.includes(textFilter)) return false;
+      if (!jot.text.toLocaleLowerCase().includes(textFilter.toLocaleLowerCase())) return false;
       if (tagFilter === "all") return true;
-
-      return jot.tag === tagFilter;
+      if (!jot.tags) return false;
+      return jot.tags.some(tag => tag.text.toLocaleLowerCase() === tagFilter.toLocaleLowerCase());
     });
 
 

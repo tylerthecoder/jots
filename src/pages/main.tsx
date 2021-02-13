@@ -4,7 +4,7 @@ import CrazyLoader from "../components/CrazyLoader";
 import JotsView from "../components/jots"
 import TagsPanel from "../components/TagsPanel";
 import usePassword from "../hooks/usePassword";
-import { Jot } from "../models/jot";
+import { IJot } from "../models/jot";
 import { API } from "../services/api";
 
 // show all of the jots
@@ -12,13 +12,15 @@ export function MainPage() {
   usePassword();
 
 
-  const [jots, setJots] = useState<Jot[] | null>();
+  const [jots, setJots] = useState<IJot[] | null>();
   const history = useHistory();
 
   useEffect(() => {
+    if (jots) return;
     API
       .getJots()
       .then(apiJots => {
+        console.log(apiJots);
         setJots(apiJots);
       })
       .catch(err => {
@@ -33,7 +35,7 @@ export function MainPage() {
     history.push("/create");
   }
 
-  const onJotClicked = (jot: Jot) => {
+  const onJotClicked = (jot: IJot) => {
     console.log(jot);
     history.push(`/j/${jot._id}`, { jot });
   }
@@ -44,8 +46,8 @@ export function MainPage() {
 
   return (
     <div>
-      <div style={{ display: "flex" }} >
-        <div>
+      <div id="mainPage">
+        <div id="leftBar">
           <input value={filter} onChange={e => setFilter(e.target.value)} />
           <TagsPanel jots={jots} onTagSelected={tag => setTagFilter(tag)} />
         </div>

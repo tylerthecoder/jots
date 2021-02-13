@@ -1,11 +1,11 @@
 import { API_URL } from "../config";
-import { Jot } from "../models/jot";
+import { IJot } from "../models/jot";
 import StorageService from "./storage";
 
 
 interface IGetJotsResponse {
   message: string;
-  jots: Jot[];
+  jots: IJot[];
 }
 
 export class API {
@@ -19,25 +19,31 @@ export class API {
     const url = `${API_URL}${path}?pwd=${StorageService.getPassword()}`;
     const res = await fetch(url, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(data),
     });
     return res.json()
   }
 
-  static async getJots(): Promise<Jot[]> {
-    const data = await this.get<IGetJotsResponse>("/jots");
-    return data.jots;
+  static async getJots(): Promise<IJot[]> {
+    return this.get<IJot[]>("/jots");
   }
 
   static async createJot(text: string): Promise<void> {
     return this.post("/jot", { text });
   }
 
-  static async setTag(jotId: string, tag: string): Promise<void> {
+  static async addTag(jotId: string, tag: string): Promise<void> {
     return this.post(`/jot/${jotId}/tag`, { tag });
   }
 
-  static async getJot(jotId: string): Promise<Jot> {
+  static async removeTag(jotId: string, tag: string): Promise<void> {
+    return this.post(`/jot/${jotId}/tag/delete`, { tag });
+  }
+
+  static async getJot(jotId: string): Promise<IJot> {
     return this.get(`/jot/${jotId}`);
   }
 }
