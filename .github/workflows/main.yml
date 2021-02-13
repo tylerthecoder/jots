@@ -22,16 +22,10 @@ jobs:
       - name: Setup
         run: yarn
 
-      - name: Build Project
+      - name: Build
         run: yarn build
         env:
           REACT_APP_API_URL: api.tylertracy.com
-
-  deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Deploy
         uses: jakejarvis/s3-sync-action@v0.5.1
