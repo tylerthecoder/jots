@@ -25,7 +25,7 @@ jobs:
       - name: Build
         run: yarn build
         env:
-          REACT_APP_API_URL: api.tylertracy.com
+          REACT_APP_API_URL: https://api.tylertracy.com
 
       - name: Deploy
         uses: jakejarvis/s3-sync-action@v0.5.1
